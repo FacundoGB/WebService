@@ -8,4 +8,6 @@ implements said interface is obligated to build that function
  */
 public interface UserDao {
     List<User> listUsers();
+
+    void delete(long id);
 }

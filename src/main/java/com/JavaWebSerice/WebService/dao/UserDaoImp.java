@@ -20,6 +20,12 @@ public class UserDaoImp implements UserDao{
         String query = "FROM User";
         return entityManager.createQuery(query).getResultList();
     }
+
+    @Override
+    public void delete(long id) {
+        User user = entityManager.find(User.class, id);
+        entityManager.remove(user);
+    }
     /*
     the class User must say to which table the query must go
     as this query references our class User
