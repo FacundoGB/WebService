@@ -9,20 +9,36 @@ In load Users will be our logic.
 To call the server we must use the FETCH function
 */
 async function loadUsers() {
-    const request = await fetch('user/123',{
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-    });
+const request = await fetch('users',{
+    method: 'GET',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+});
 
-    const users = await request.json();
-    /*
-    'request' is the name of the result of the request
-    'users' is the result of the request transformed into json
-    */
-    console.log(users);
+const users = await request.json();
+/*
+'request' is the name of the result of the request
+'users' is the result of the request transformed into json
+*/
+console.log(users);
+
+let htmlList = '';
+for (let user of users) {
+    user.name
+    let userhtml = '<tr><td>'+ user.id +'</td><td>'+ user.name +' '+ user.surname +'</td><td>'+ user.email +'</td><td>'+ user.phone +'</td><td><a href="#" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a></td></tr>'
+    htmlList += userhtml;
+}
+
+/*
+We want the body of the table to be saved in a variable and to automatically
+generate new entries with different data.
+The whole new auto filled userhtml will be saved in a list called htmlList
+*/
+
+document.querySelector('#usersDB tbody').outerHTML = htmlList;
+
 
 }
 

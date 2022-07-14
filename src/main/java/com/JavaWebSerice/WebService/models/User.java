@@ -1,59 +1,35 @@
 package com.JavaWebSerice.WebService.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @Getter @Setter @Column(name = "id")
     private Long id;
+
+    @Getter @Setter @Column(name = "name")
     private String name;
+
+    @Getter @Setter @Column(name = "surname")
     private String surname;
+
+    @Getter @Setter @Column(name = "email")
     private String email;
+
+    @Getter @Setter @Column(name = "phone")
     private String phone;
+
+    @Getter @Setter @Column(name = "password")
     private String password;
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
