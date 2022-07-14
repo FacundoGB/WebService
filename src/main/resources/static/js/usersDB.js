@@ -9,7 +9,7 @@ In load Users will be our logic.
 To call the server we must use the FETCH function
 */
 async function loadUsers() {
-const request = await fetch('users',{
+const request = await fetch('api/users',{
     method: 'GET',
     headers: {
         'Accept': 'application/json',
@@ -24,10 +24,14 @@ const users = await request.json();
 */
 console.log(users);
 
+
 let htmlList = '';
 for (let user of users) {
-    user.name
-    let userhtml = '<tr><td>'+ user.id +'</td><td>'+ user.name +' '+ user.surname +'</td><td>'+ user.email +'</td><td>'+ user.phone +'</td><td><a href="#" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a></td></tr>'
+    let delButton = '<a href="#" onclick="delUser('+user.id+')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>'
+    //user.name
+    let userhtml = '<tr><td>'+ user.id +'</td><td>'+ user.name +' '+ user.surname +'</td><td>'
+                + user.email +'</td><td>'+ user.phone
+                +'</td><td>'+ delButton +'</td></tr>'
     htmlList += userhtml;
 }
 
@@ -42,6 +46,9 @@ document.querySelector('#usersDB tbody').outerHTML = htmlList;
 
 }
 
+function delUser(id) {
+    alert(id);
+}
 
 
 //$(document).ready(function() ---> que ejecute la funcion una vez cargada toda la pagina
