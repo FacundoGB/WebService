@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private UserDao userDao;
 
-    @RequestMapping(value = "api/user/{id}")
+    @RequestMapping(value = "api/users/{id}")
     public User getUser(@PathVariable Long id) {
         User user = new User();
         user.setId(id);
@@ -43,7 +43,7 @@ public class UserController {
         user.setPhone("341555555");
         return user;
     }
-    @RequestMapping(value = "api/user/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "api/users/{id}", method = RequestMethod.DELETE)
     public void deleteUser(@PathVariable long id) {
         userDao.delete(id);
     }
