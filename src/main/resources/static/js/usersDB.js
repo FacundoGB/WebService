@@ -27,7 +27,7 @@ console.log(users);
 
 let htmlList = '';
 for (let user of users) {
-    let delButton = '<a href="#" onclick="delUser('+user.id+')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>'
+    let delButton = '<a href="#" onclick="delUser('+ user.id +')" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>'
     //user.name
     let userhtml = '<tr><td>'+ user.id +'</td><td>'+ user.name +' '+ user.surname +'</td><td>'
                 + user.email +'</td><td>'+ user.phone
@@ -46,8 +46,14 @@ document.querySelector('#usersDB tbody').outerHTML = htmlList;
 
 }
 
-function delUser(id) {
-    alert(id);
+async function delUser(id) {
+    const request = await fetch('api/users/'+ id,{
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    });
 }
 
 
