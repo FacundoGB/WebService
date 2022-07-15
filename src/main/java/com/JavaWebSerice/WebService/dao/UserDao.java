@@ -10,4 +10,6 @@ public interface UserDao {
     List<User> listUsers();
 
     void delete(long id);
+
+    void register(User user);
 }

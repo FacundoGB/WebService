@@ -26,6 +26,11 @@ public class UserDaoImp implements UserDao{
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
+
+    @Override
+    public void register(User user) {
+        entityManager.merge(user);
+    }
     /*
     the class User must say to which table the query must go
     as this query references our class User
