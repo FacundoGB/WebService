@@ -32,5 +32,7 @@ const request = await fetch('api/users',{
     },
     body: JSON.stringify(data)
 });
+alert("Account successfully registered!");
+window.location.href = 'login.html'
 }
 
