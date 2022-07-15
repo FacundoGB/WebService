@@ -35,4 +35,21 @@ public class UserDaoImp implements UserDao{
     the class User must say to which table the query must go
     as this query references our class User
      */
+
+    @Override
+    public boolean verifyCredentials(User user) {
+        String query = "FROM User WHERE email = :email AND password = :password ";
+        List<User> list= entityManager.createQuery(query)
+                .setParameter("email", user.getEmail())
+                .setParameter("password", user.getPassword())
+                .getResultList();
+
+        return !list.isEmpty();
+
+    }
+    /*
+    String query = "FROM User WHERE email = 'user.getEmail' AND password = '' ";
+    can lead to SQL Injection.
+    We want it to return a boolean to know if credentials are valid.
+     */
 }
