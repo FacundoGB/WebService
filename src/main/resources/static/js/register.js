@@ -24,7 +24,6 @@ if(repeatPassword != data.password) {
     return;
 }
 
-
 const request = await fetch('api/users',{
     method: 'POST',
     headers: {
@@ -33,17 +32,5 @@ const request = await fetch('api/users',{
     },
     body: JSON.stringify(data)
 });
-    /*
-    we capture and parse the data that the user inputs
-    The function JSON.stringify grabs any js objects and transforms it into a JSON string.
-    We give it data. The sent data must be equal to the received data.
-
-    */
-
-
-
-const users = await request.json();
-
-
 }
 
