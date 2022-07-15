@@ -3,10 +3,7 @@ package com.JavaWebSerice.WebService.controllers;
 import com.JavaWebSerice.WebService.dao.UserDao;
 import com.JavaWebSerice.WebService.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +26,20 @@ public class UserController {
         return user;
     }
     //returns full list of users
-    @RequestMapping(value = "api/users")
+    @RequestMapping(value = "api/users", method = RequestMethod.GET)
     public List<User> listUsers() {
         return userDao.listUsers();
     }
+    @RequestMapping(value = "api/users", method = RequestMethod.POST)
+    public void registerUser(@RequestBody User user) {
+        userDao.register(user);
+    }
+
+    @RequestMapping(value = "api/users/{id}", method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable long id) {
+        userDao.delete(id);
+    }
+
     @RequestMapping(value = "userMod")
     public User modUser() {
         User user = new User();
@@ -43,19 +50,5 @@ public class UserController {
         user.setPhone("341555555");
         return user;
     }
-    @RequestMapping(value = "api/users/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable long id) {
-        userDao.delete(id);
-    }
 
-    @RequestMapping(value = "userSearch")
-    public User searchUser() {
-        User user = new User();
-        user.setName("Faucndo");
-        user.setSurname("Bardi");
-        user.setEmail("facundo@mail.com");
-        user.setPassword("12341234");
-        user.setPhone("341555555");
-        return user;
-    }
 }
