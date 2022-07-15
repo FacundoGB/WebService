@@ -1,6 +1,8 @@
 package com.JavaWebSerice.WebService.dao;
 
 import com.JavaWebSerice.WebService.models.User;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,14 +40,25 @@ public class UserDaoImp implements UserDao{
 
     @Override
     public boolean verifyCredentials(User user) {
-        String query = "FROM User WHERE email = :email AND password = :password ";
+        /*
+        password decoder. we wont verify password against db
+        See how to handle it with try-catch
+         */
+
+        String query = "FROM User WHERE email = :email";
         List<User> list= entityManager.createQuery(query)
                 .setParameter("email", user.getEmail())
-                .setParameter("password", user.getPassword())
                 .getResultList();
 
-        return !list.isEmpty();
+        if (list.isEmpty()){
+            return false;
+        }
 
+        String passwordHashed = list.get(0).getPassword();
+        char[] password = user.getPassword().toCharArray();
+
+        Argon2 passVerify = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        return passVerify.verify(passwordHashed, password);
     }
     /*
     String query = "FROM User WHERE email = 'user.getEmail' AND password = '' ";
