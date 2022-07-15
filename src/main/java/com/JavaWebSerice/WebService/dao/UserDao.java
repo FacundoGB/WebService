@@ -12,4 +12,6 @@ public interface UserDao {
     void delete(long id);
 
     void register(User user);
+
+    boolean verifyCredentials(User user);
 }
