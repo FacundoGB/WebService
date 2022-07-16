@@ -23,7 +23,15 @@ const request = await fetch('api/login',{
 });
 //we bring info of the session. Not needed in registration
 const response = await request.text();
-if (response == 'ok.') {
+
+//The response will no longer be Ok. Now we should return an error 401 auth server error
+if (response != 'FAIL') {
+
+//In the response is the info we want to save
+localStorage.token = response;
+//we save more info like email for session
+localStorage.email = data.email;
+
 window.location.href = 'users.html'
 }else {
 alert('Las credenciales son incorrectas. Intente nuevamente.');

@@ -2,7 +2,24 @@
 $(document).ready(function() {
     loadUsers();
   $('#usersDB').DataTable();
+
+  userEmailIdent();
 });
+
+function userEmailIdent() {
+    document.getElementById('txt-email-user').outerHTML = localStorage.email;
+}
+
+function getHeaders() {
+        return {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            //Every time we send  request (like deleting a user) we should send that token
+            //we add token info. We should use a function to reuse code.
+            'Authorization': localStorage.token
+        };
+}
+
 
 /*
 In load Users will be our logic.
@@ -11,10 +28,7 @@ To call the server we must use the FETCH function
 async function loadUsers() {
 const request = await fetch('api/users',{
     method: 'GET',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
+    headers: getHeaders()
 });
 
 const users = await request.json();
@@ -54,10 +68,7 @@ async function delUser(id) {
     }
     const request = await fetch('api/users/'+ id,{
         method: 'DELETE',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        headers: getHeaders()
     });
 
     location.reload();

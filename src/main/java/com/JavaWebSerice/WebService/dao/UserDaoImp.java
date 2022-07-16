@@ -39,9 +39,9 @@ public class UserDaoImp implements UserDao{
      */
 
     @Override
-    public boolean verifyCredentials(User user) {
+    public User obtainUserForCredentials(User user) {
         /*
-        password decoder. we wont verify password against db
+        password decoder. we won't verify password against db
         See how to handle it with try-catch
          */
 
@@ -51,14 +51,19 @@ public class UserDaoImp implements UserDao{
                 .getResultList();
 
         if (list.isEmpty()){
-            return false;
+            System.out.println("null line list.isEmpty userDaoImp");
+            return null;
         }
 
         String passwordHashed = list.get(0).getPassword();
         char[] password = user.getPassword().toCharArray();
 
         Argon2 passVerify = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        return passVerify.verify(passwordHashed, password);
+        if(passVerify.verify(passwordHashed, password)) {
+            System.out.println("user object: " + list.get(0));
+            return list.get(0);
+        }
+        return null;
     }
     /*
     String query = "FROM User WHERE email = 'user.getEmail' AND password = '' ";
